@@ -27,6 +27,50 @@
 
         <div class="card-body">
 
+          <div class="form-holder">
+
+            <form class="frm">
+
+              <div class="slider">
+                <label for="rangeOfCharacters">Character Amount</label>
+                <input type="range" min="8" max="128" value="64">
+                <input type="number" min="8" max="128" value="64">
+              </div>
+              
+
+              <br>
+
+              <div class="checkbox">
+                <label for="includeLowercase">Include Lowercase</label>
+                <input type="checkbox">
+              </div>
+
+              <br>
+
+              <div class="checkbox">
+                <label for="includeUppercase">Include Uppercase</label>
+                <input type="checkbox">
+              </div>
+              
+              <br>
+
+              <div class="checkbox">
+                <label for="includeNumbers">Include Numbers</label>
+                <input type="checkbox">
+              </div>
+              
+              <br>
+
+              <div class="checkbox">
+                <label for="includeSymbols">Include Symbols</label>
+                <input type="checkbox">
+              </div>
+              
+
+            </form>
+
+          </div>
+
           <textarea
             readonly
             id="password"
