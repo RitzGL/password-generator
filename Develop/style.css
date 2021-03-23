@@ -72,21 +72,6 @@ header {
   clear: both;
 }
 
-.form-holder{
-  margin: 0.2em;
-  padding: 0.2em;
-}
-
-.slider{
-  display:grid;
-  grid-template-columns: 30% 30% 10%;
-}
-
-.checkbox{
-  display:grid;
-  grid-template-columns: 45% 45%;
-}
-
 .btn {
   border: none;
   background-color: hsl(360, 91%, 36%);
