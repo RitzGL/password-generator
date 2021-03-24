@@ -1,92 +1,41 @@
-# 03 JavaScript: Password Generator
+# Password Generator
 
-## Your Task
+## Application
 
-This week’s homework requires you to modify starter code to create an application that enables employees to generate random passwords based on criteria that they’ve selected. This app will run in the browser and will feature dynamically updated HTML and CSS powered by JavaScript code that you write. It will have a clean and polished, responsive user interface that adapts to multiple screen sizes.
+This application allows user to give it some criteria:
 
-The password can include special characters. If you’re unfamiliar with these, see this [list of password special characters](https://www.owasp.org/index.php/Password_special_characters) from the OWASP Foundation.
+* Length of the password in number of characters.
+* Include lower case characters
+* Include upper case characters
+* Include numbers
+* Include symbols
 
-## User Story
+The application takes these criteria, then randomly generates a string with all the specified characteristics.
 
-```
-AS AN employee with access to sensitive data
-I WANT to randomly generate a password that meets certain criteria
-SO THAT I can create a strong password that provides greater security
-```
 
-## Acceptance Criteria
+# Application - Image
 
-```
-GIVEN I need a new, secure password
-WHEN I click the button to generate a password
-THEN I am presented with a series of prompts for password criteria
-WHEN prompted for password criteria
-THEN I select which criteria to include in the password
-WHEN prompted for the length of the password
-THEN I choose a length of at least 8 characters and no more than 128 characters
-WHEN prompted for character types to include in the password
-THEN I choose lowercase, uppercase, numeric, and/or special characters
-WHEN I answer each prompt
-THEN my input should be validated and at least one character type should be selected
-WHEN all prompts are answered
-THEN a password is generated that matches the selected criteria
-WHEN the password is generated
-THEN the password is either displayed in an alert or written to the page
-```
 
-## Mock-Up
+![Application shows generated password with minimal password length selected and including all character types.](./Assets/application-demo.png)
 
-The following image shows the web application's appearance and functionality:
 
-![The Password Generator application displays a red button to "Generate Password".](./Assets/03-javascript-homework-demo.png)
+# Challenges
 
-## Grading Requirements
 
-This homework is graded based on the following criteria: 
+The use of prompts was specified as one of the features desired. This poses some issues. 
 
-### Technical Acceptance Criteria: 40%
+## Aler Box Behaviour
 
-* Satisfies all of the preceding acceptance criteria plus the following:
+Firstly, the application, when given a string as a password length, tells the user that page needs to be reloaded. 
 
-  * The homework should not produce any errors in the console when you inspect it using Chrome DevTools.
+Though at first, the use of the function `window.location.reload()` was implemented, this only caused the browser to reload indefinitely, and it is postulated that the use of alerts is the cause; the rest of the alerts for the criteria is executed regardless, and due to the structure of the logic, the alerts cannot be stopped. Attempts at stopping the process were made, however, I was not able to fix this. 
 
-### Deployment: 32%
+## Randomisation
 
-* Application deployed at live URL.
+Secondly, the application's use of `Math.random()` to randomly generate values only makes the password generation pseudo-random. There is a clear bias for median values between 0 and 1, which is how the function operates. 
 
-* Application loads with no errors.
+When attempting to satisfy the user criteria for the password, there was a chance that one of the desired character types would not be selected for insertion into the password string. To rectify this, when a criteria is selected, the script will generate a random character from one of the character type arrays, and insert it into the password string at the end, in order to try and ensure that the criteria is met. This was implemented with limited success, once again, due to the nature of how `Math.random()` operates.
 
-* Application GitHub URL submitted.
+# Maintenance
 
-* GitHub repository that contains application code.
-
-### Application Quality: 15%
-
-* Application user experience is intuitive and easy to navigate.
-
-* Application user interface style is clean and polished.
-
-* Application resembles the mock-up functionality provided in the homework instructions.
-
-### Repository Quality: 13%
-
-* Repository has a unique name.
-
-* Repository follows best practices for file structure and naming conventions.
-
-* Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-* Repository contains multiple descriptive commit messages.
-
-* Repository contains quality readme file with description, screenshot, and link to deployed application.
-
-## Review
-
-You are required to submit the following for review:
-
-* The URL of the deployed application.
-
-* The URL of the GitHub repository, with a unique name and a readme describing the project.
-
-- - -
-© 2021 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
+In future versions of the application, alternative methods of randomisation will be visited. In addtion, a form will be implemented in order to make the user experience more smooth, and ultimately fix the undesired behaviour of the alerts. 
