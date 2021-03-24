@@ -42,39 +42,42 @@ function randomlySelectSingleCharacter(array){
   return randomCharacter;
 }
 
-// generate a string with 1 character from each ASCII code array
-// returns a string
-function stringFromAllArrays(){
-  var string = '';
-  var char1 = randomlySelectSingleCharacter(lowercase);
-  var char2 = randomlySelectSingleCharacter(uppercase);
-  var char3 = randomlySelectSingleCharacter(numbers);
-  var char4 = randomlySelectSingleCharacter(symbols);
-  string = char1 + char2 + char3 + char4;
-  return string;
+// get a random number
+// returns number
+function getRandomInt(length){
+  var i = Math.floor(Math.random() * length);
+  return i;
 }
 
-var testString = stringFromAllArrays();
-console.log("string from all arrays: ", testString);
+// get criteria for password generation from the user
+// return an array of booleans of the selected criteria
+function getUserCriteria(){
+  var includeLowercase = confirm("Include lowercase characters? OK: Yes Cancel: No");
+  var includeUppercase = confirm("Include uppercase characters? OK: Yes Cancel: No");
+  var includeNumbers = confirm("Include number characters? OK: Yes Cancel: No");
+  var includeSymbols = confirm("Include symbol characters? OK: Yes Cancel: No");
+  var criteriaArray = [includeLowercase, includeUppercase, includeNumbers, includeSymbols];
+  return criteriaArray;
+}
 
-// confirm boxes concatenates arrays based on user response
+// array is concatenated depending on user criteria
 // returns array from which password will be selected
-function concatenateArrays(){
+function concatenateArrays(userCriteria){
   var array = [];
   
-  if(confirm("Include lowercase characters? OK: Yes Cancel: No")){
+  if(userCriteria[0]){
     array = array.concat(lowercase);
   }
 
-  if(confirm("Include uppercase characters? OK: Yes Cancel: No")){
+  if(userCriteria[1]){
     array = array.concat(uppercase);
   }
 
-  if(confirm("Include number characters? OK: Yes Cancel: No")){
+  if(userCriteria[2]){
     array = array.concat(numbers);
   }
 
-  if(confirm("Include symbol characters? OK: Yes Cancel: No")){
+  if(userCriteria[3]){
     array = array.concat(symbols);
   }
 
@@ -97,35 +100,76 @@ function getPasswordLength(){
   }
 }
 
+// ensure at least one of selected character types is selected
+// returns an array of characters
+function validatePasswordCriteria(userCriteria){
+  
+  var criteriaString = '';
+  if(userCriteria[0]){
+    var lowercaseChar = randomlySelectSingleCharacter(lowercase);
+    criteriaString = criteriaString + lowercaseChar;
+  }
+
+  if(userCriteria[1]){
+    var uppercaseChar = randomlySelectSingleCharacter(uppercase);
+    criteriaString = criteriaString + uppercaseChar;
+  }
+
+  if(userCriteria[2]){
+    var numberChar = randomlySelectSingleCharacter(numbers);
+    criteriaString = criteriaString + numberChar;
+  }
+
+  if(userCriteria[3]){
+    var symbolChar = randomlySelectSingleCharacter(symbols);
+    criteriaString = criteriaString + symbolChar;
+  }
+  var stringArray = criteriaString.split("");
+  return stringArray;
+}
+
 // write a function that generates a random string from appended arrays
 // returns string from randonly selected characters
 // invokes all other methods
 function generatePassword(){
+
   var password = [];
   
   // get the length of the password from the user
   var passwordLength = getPasswordLength();
-  console.log("length of password: ", passwordLength);
   
-  // generate the array from which the password will be generated 
-  passwordCharacterSelector = concatenateArrays();
-  console.log("array from which password will be generated ", 
-  passwordCharacterSelector);
+  var userCriteria = getUserCriteria();
 
+  // generate the array from which the password will be generated 
+  passwordCharacterSelector = concatenateArrays(userCriteria);
+ 
+  // ensure that at least one of each type is inserted 
+  var insertedString = validatePasswordCriteria(userCriteria);
+  
   for(let i = 0; i < passwordLength; i++){
 
     password[i] = randomlySelectSingleCharacter(passwordCharacterSelector);
 
   }
+
+  // this only iterates through 3 times, unable to find bug
+  for(let i = 0; i < insertedString.length; i++){
+
+    var j = getRandomInt(password.length);
+    password[j] = insertedString[i];
+
+  }
+
   return password;
 }
 
 // Write password to the #password input
 function writePassword() {
+  
   var passwordArray = generatePassword();
   var password =  passwordArray.join("");
   var passwordText = document.querySelector("#password");
-
+  
   passwordText.value = password;
 
 }
