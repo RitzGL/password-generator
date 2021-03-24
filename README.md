@@ -16,7 +16,7 @@ The application takes these criteria, then randomly generates a string with all 
 # Application - Image
 
 
-![Application shows generated password with minimal password length selected and including all character types.](./Assets/application-demo.png)
+![Application shows generated password with minimal password length selected and including all character types.](../Assets/application-demo.png)
 
 
 # Challenges
