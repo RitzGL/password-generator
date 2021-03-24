@@ -1,4 +1,4 @@
-// Assignment Code
+// select the buttom element
 var generateBtn = document.querySelector("#generate");
 
 // generate 4 different arrays, with the ASCII codes for each criteria
@@ -12,43 +12,96 @@ var symbols = generateArray(33, 47).concat(
 ).concat(
   generateArray(123,126)
 );
-console.log(lowercase);
-console.log(uppercase);
-console.log(numbers);
-console.log(symbols);
 
+// empty array - will be concatenated with one or more of the default arrays
+var passwordCharacterSelector = [];
+
+// generate the default arrays
+// returns an array with ASCII codes within the 'low' and 'range'
 function generateArray(low, high){
+
   var myArray = [];
+
   for(var i = low; i <= high; i++){
+
     myArray.push(i);
+
   }
+  
   return myArray;
 }
 
-//write a function that generates random character from an array
+//randomly select single character from an array
+// returns character
 function randomlySelectSingleCharacter(array){
-  var i = Math.floor(Math.random() * (array.length));
+
+  var i = Math.floor(Math.random() * array.length);
   
   var randomCharacter = String.fromCharCode(array[i]);
 
   return randomCharacter;
 }
 
-for(var i = 0; i < 100; i++){
-  var randomCharacter = randomlySelectSingleCharacter(lowercase);
-  console.log("random character generated from lowercase array: ", randomCharacter);
+// confirm boxes concatenates arrays based on user response
+// returns array from which password will be selected
+function concatenateArrays(){
+  var array = [];
+  
+  if(confirm("Include lowercase characters? OK: Yes Cancel: No")){
+    array = array.concat(lowercase);
+  }
+
+  if(confirm("Include uppercase characters? OK: Yes Cancel: No")){
+    array = array.concat(uppercase);
+  }
+
+  if(confirm("Include number characters? OK: Yes Cancel: No")){
+    array = array.concat(numbers);
+  }
+
+  if(confirm("Include symbol characters? OK: Yes Cancel: No")){
+    array = array.concat(symbols);
+  }
+
+  return array;
 }
 
+// get the length of the password, reload page if length is null or out of range
+// returns a number as text
+function getPasswordLength(){
+  var passwordLength = prompt("Enter how many characters in password (8-128)"
+  ,"8")
 
+  if(passwordLength === null || passwordLength < 8 || passwordLength > 128){
+    alert("Password must be between 8 and 128 characters!");
+    document.location.reload();
+  }else{
+    return passwordLength;
+  }
 
-// write a function that concatenates the arrays depending on user response
-
+}
 
 // write a function that generates a random string from appended arrays
+// returns string from randonly selected characters
+// invokes all other methods
+function generatePassword(){
+  var password = [];
+  
+  // get the length of the password from the user
+  var passwordLength = getPasswordLength();
+  console.log("length of password: ", passwordLength);
+  
+  // generate the array from which the password will be generated 
+  passwordCharacterSelector = concatenateArrays();
+  console.log("array from which password will be generated ", 
+  passwordCharacterSelector);
 
 
-// write a function that concatenates the random string to random pasword
+  // for(let i = 0; i < passwordLength; i++){
+    
 
+  // }
+}
 
 // Write password to the #password input
 function writePassword() {
