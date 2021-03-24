@@ -31,7 +31,7 @@ function generateArray(low, high){
   return myArray;
 }
 
-//randomly select single character from an array
+// randomly select single character from an array
 // returns character
 function randomlySelectSingleCharacter(array){
 
@@ -41,6 +41,21 @@ function randomlySelectSingleCharacter(array){
 
   return randomCharacter;
 }
+
+// generate a string with 1 character from each ASCII code array
+// returns a string
+function stringFromAllArrays(){
+  var string = '';
+  var char1 = randomlySelectSingleCharacter(lowercase);
+  var char2 = randomlySelectSingleCharacter(uppercase);
+  var char3 = randomlySelectSingleCharacter(numbers);
+  var char4 = randomlySelectSingleCharacter(symbols);
+  string = char1 + char2 + char3 + char4;
+  return string;
+}
+
+var testString = stringFromAllArrays();
+console.log("string from all arrays: ", testString);
 
 // confirm boxes concatenates arrays based on user response
 // returns array from which password will be selected
@@ -69,16 +84,17 @@ function concatenateArrays(){
 // get the length of the password, reload page if length is null or out of range
 // returns a number as text
 function getPasswordLength(){
-  var passwordLength = prompt("Enter how many characters in password (8-128)"
-  ,"8")
+  var passwordLength = prompt("Enter how many characters in password (8-128)");
 
-  if(passwordLength === null || passwordLength < 8 || passwordLength > 128){
-    alert("Password must be between 8 and 128 characters!");
-    document.location.reload();
+  if(passwordLength === null 
+    || passwordLength < 8 
+    || passwordLength > 128){
+    alert("Password must be an integer between 8 and 128 characters!");
+    alert("Password will be empty, please reload page");
+    // document.location.reload();
   }else{
     return passwordLength;
   }
-
 }
 
 // write a function that generates a random string from appended arrays
@@ -96,16 +112,18 @@ function generatePassword(){
   console.log("array from which password will be generated ", 
   passwordCharacterSelector);
 
+  for(let i = 0; i < passwordLength; i++){
 
-  // for(let i = 0; i < passwordLength; i++){
-    
+    password[i] = randomlySelectSingleCharacter(passwordCharacterSelector);
 
-  // }
+  }
+  return password;
 }
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
+  var passwordArray = generatePassword();
+  var password =  passwordArray.join("");
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
