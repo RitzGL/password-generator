@@ -94,7 +94,8 @@ function getPasswordLength(){
     || passwordLength > 128){
     alert("Password must be an integer between 8 and 128 characters!");
     alert("Password will be empty, please reload page");
-    // document.location.reload();
+    console.log("password length: ", passwordLength);
+    document.location.reload();
   }else{
     return passwordLength;
   }
